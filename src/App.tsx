@@ -108,7 +108,7 @@ function CoverSlide({ onEnter }: { onEnter: () => void }) {
           Nossa Retrospectiva
         </h1>
         <p className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2">
-          Eduardo <Heart className="inline w-5 h-5 md:w-6 md:h-6 text-pink-500 animate-pulse" /> Taylana
+          Taylana <Heart className="inline w-5 h-5 md:w-6 md:h-6 text-pink-500 animate-pulse" /> Eduardo
         </p>
         <p className="text-white/60 mb-6 md:mb-8 text-sm md:text-base">10 de Abril de 2024</p>
 
