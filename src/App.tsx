@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, Heart, Music, Clock, Camera, Sparkles, Eye, Smile, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Heart, Music, Clock, Camera, Sparkles, Eye, Smile, Star, ChevronDown, ChevronUp } from 'lucide-react';
 
 const PHOTOS = [
   'imgs/foto1.jpg',
@@ -52,7 +52,7 @@ function CoverSlide({ onEnter }: { onEnter: () => void }) {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#1a1a2e] to-[#0a0a0a]" />
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-20 left-6 md:left-10 w-48 md:w-64 h-48 md:h-64 bg-orange-500/20 rounded-full blur-3xl animate-pulse" />
@@ -124,7 +124,9 @@ function CoverSlide({ onEnter }: { onEnter: () => void }) {
           </span>
         </button>
 
-        <p className="mt-6 md:mt-8 text-white/40 text-xs md:text-sm animate-bounce">Toque para começar</p>
+        <p className="mt-6 md:mt-8 text-white/40 text-xs md:text-sm animate-bounce flex items-center justify-center gap-1">
+          <ChevronDown className="w-4 h-4" /> Deslize para começar
+        </p>
       </div>
     </div>
   );
@@ -134,7 +136,7 @@ function StatsSlide() {
   const time = calculateTimeTogether();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-orange-600/20 via-[#0a0a0a] to-pink-600/20" />
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-pink-500 to-violet-500" />
 
@@ -184,7 +186,7 @@ function StatsSlide() {
 
 function MusicSlide() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-violet-900/30 via-[#0a0a0a] to-pink-900/30" />
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 md:w-[500px] h-64 md:h-[500px] bg-violet-500/30 rounded-full blur-3xl animate-pulse" />
@@ -211,7 +213,7 @@ function MusicSlide() {
         </div>
 
         <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Nossa Canção</h3>
-        <p className="text-lg md:text-xl text-violet-400 font-semibold mb-4 md:mb-6">"Partilhar" - Rubel</p>
+        <p className="text-lg md:text-xl text-violet-400 font-semibold mb-4 md:mb-6">"I Can't Falling in love you" - Elvis Presley</p>
 
         <div className="bg-white/5 backdrop-blur-lg rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/10">
           <p className="text-white/80 italic leading-relaxed text-center text-sm md:text-base">
@@ -239,7 +241,7 @@ function PhotosSlide() {
   const prevPhoto = () => setCurrentIndex((prev) => (prev - 1 + PHOTOS.length) % PHOTOS.length);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-rose-900/20 via-[#0a0a0a] to-orange-900/20" />
 
       <div className="relative z-10 text-center max-w-md w-full">
@@ -329,7 +331,7 @@ function LoveMeterSlide() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-red-900/30 via-[#0a0a0a] to-pink-900/30" />
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-64 md:w-[600px] h-64 md:h-[600px] bg-red-500/20 rounded-full blur-3xl animate-pulse" />
@@ -443,15 +445,14 @@ function WhatILoveSlide() {
   const attr = attributes[current];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 bg-[#0d1117]" />
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-80 h-80 bg-orange-600/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-pink-600/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 w-full max-w-sm mx-auto flex flex-col h-screen py-8 px-4">
-        {/* Header */}
+      <div className="relative z-10 w-full max-w-sm mx-auto flex flex-col h-full py-8 px-4">
         <div className="text-center flex-shrink-0 mb-5">
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500/30 to-pink-500/30 border border-orange-500/40 text-orange-300 text-xs font-bold tracking-widest px-4 py-2 rounded-full mb-4">
             <Sparkles className="w-3 h-3" />
@@ -464,7 +465,6 @@ function WhatILoveSlide() {
           </h2>
         </div>
 
-        {/* Carousel card */}
         <div
           className="flex-1 flex flex-col min-h-0"
           onTouchStart={handleTouchStart}
@@ -480,7 +480,6 @@ function WhatILoveSlide() {
               transition: 'opacity 0.3s ease, transform 0.3s ease',
             }}
           >
-            {/* Photo background */}
             <img
               key={current}
               src={attr.photo}
@@ -493,7 +492,6 @@ function WhatILoveSlide() {
                 if (fallback) fallback.style.display = 'flex';
               }}
             />
-            {/* Fallback gradient */}
             <div
               className={`absolute inset-0 bg-gradient-to-br ${attr.color} opacity-60 hidden items-center justify-center`}
               style={{ display: 'none' }}
@@ -501,10 +499,8 @@ function WhatILoveSlide() {
               <span className="text-8xl">{attr.icon}</span>
             </div>
 
-            {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/10" />
 
-            {/* Card info overlay at bottom */}
             <div className="absolute bottom-0 left-0 right-0 p-5">
               <div className="flex items-end justify-between">
                 <div>
@@ -519,11 +515,9 @@ function WhatILoveSlide() {
                 </div>
               </div>
 
-              {/* Color accent bar */}
               <div className={`mt-4 h-1 rounded-full bg-gradient-to-r ${attr.color}`} />
             </div>
 
-            {/* Nav arrows */}
             <button
               onClick={() => navigate('left')}
               className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/60 transition-colors"
@@ -538,7 +532,6 @@ function WhatILoveSlide() {
             </button>
           </div>
 
-          {/* Dots */}
           <div className="flex justify-center gap-1.5 mt-4 pb-2 flex-shrink-0">
             {attributes.map((_, i) => (
               <button
@@ -560,7 +553,7 @@ function WhatILoveSlide() {
 
 function FavoritesSlide() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-[#0a0a0a] to-pink-900/20" />
 
       <div className="relative z-10 text-center max-w-md w-full">
@@ -606,7 +599,7 @@ function FavoritesSlide() {
 
 function LoveLetterSlide() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-rose-900/30 via-[#0a0a0a] to-pink-900/30" />
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-64 md:w-[600px] h-64 md:h-[600px] bg-rose-500/30 rounded-full blur-3xl animate-pulse" />
@@ -650,7 +643,7 @@ function LoveLetterSlide() {
 
 function FinalSlide() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#1a1a2e] to-[#0a0a0a]" />
 
       <div className="absolute inset-0 overflow-hidden">
@@ -730,8 +723,10 @@ function FinalSlide() {
 
 function App() {
   const [currentSlide, setCurrentSlide] = useState(-1);
+  const [slideDirection, setSlideDirection] = useState<'down' | 'up'>('down');
   const [isTransitioning, setIsTransitioning] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const touchStartY = useRef(0);
 
   const slides = [
     StatsSlide,
@@ -744,64 +739,67 @@ function App() {
     FinalSlide,
   ];
 
-  const goToSlide = (index: number) => {
+  const goToSlide = (index: number, direction: 'down' | 'up' = 'down') => {
     if (isTransitioning) return;
     setIsTransitioning(true);
+    setSlideDirection(direction);
     setCurrentSlide(index);
-    setTimeout(() => setIsTransitioning(false), 500);
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
   const nextSlide = () => {
     if (currentSlide < slides.length - 1) {
-      goToSlide(currentSlide + 1);
+      goToSlide(currentSlide + 1, 'down');
     }
   };
 
   const prevSlide = () => {
     if (currentSlide > -1) {
-      goToSlide(currentSlide - 1);
+      goToSlide(currentSlide - 1, 'up');
     }
   };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
-      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') prevSlide();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentSlide]);
 
   useEffect(() => {
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartX = e.changedTouches[0].screenX;
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) nextSlide();
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      if (Math.abs(e.deltaY) > 30) {
+        if (e.deltaY > 0) nextSlide();
         else prevSlide();
       }
     };
 
     const container = containerRef.current;
     if (container) {
-      container.addEventListener('touchstart', handleTouchStart);
-      container.addEventListener('touchend', handleTouchEnd);
+      container.addEventListener('wheel', handleWheel, { passive: false });
     }
 
     return () => {
       if (container) {
-        container.removeEventListener('touchstart', handleTouchStart);
-        container.removeEventListener('touchend', handleTouchEnd);
+        container.removeEventListener('wheel', handleWheel);
       }
     };
   }, [currentSlide]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.changedTouches[0].screenY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const diff = touchStartY.current - e.changedTouches[0].screenY;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+  };
 
   const progressPercentage = currentSlide === -1 ? 0 : ((currentSlide + 1) / slides.length) * 100;
 
@@ -809,6 +807,8 @@ function App() {
     <div
       ref={containerRef}
       className="h-screen w-screen overflow-hidden bg-[#0a0a0a] relative"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {currentSlide >= 0 && (
         <div className="fixed top-0 left-0 right-0 h-1 bg-white/10 z-50">
@@ -819,53 +819,51 @@ function App() {
         </div>
       )}
 
-      <div className="h-full w-full">
-        {currentSlide === -1 ? (
-          <CoverSlide onEnter={() => goToSlide(0)} />
-        ) : (
-          <div className="relative h-full">
-            <div
-              key={currentSlide}
-              className="absolute inset-0 fade-in-anim"
-            >
-              {(() => {
-                const SlideComponent = slides[currentSlide];
-                return <SlideComponent />;
-              })()}
-            </div>
+      <div className="h-full w-full relative">
+        <div
+          key={currentSlide}
+          className={`absolute inset-0 ${slideDirection === 'down' ? 'slide-in-down' : 'slide-in-up'}`}
+        >
+          {currentSlide === -1 ? (
+            <CoverSlide onEnter={() => goToSlide(0, 'down')} />
+          ) : (
+            (() => {
+              const SlideComponent = slides[currentSlide];
+              return <SlideComponent />;
+            })()
+          )}
+        </div>
 
-            {currentSlide > 0 && (
-              <button
-                onClick={prevSlide}
-                className="fixed left-1 md:left-2 lg:left-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-40"
-              >
-                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-              </button>
-            )}
-            {currentSlide < slides.length - 1 && (
-              <button
-                onClick={nextSlide}
-                className="fixed right-1 md:right-2 lg:right-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-40"
-              >
-                <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-              </button>
-            )}
-
-            <div className="fixed bottom-4 md:bottom-6 left-0 right-0 flex justify-center gap-1 md:gap-2 z-40 px-2">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === currentSlide
-                      ? 'w-6 md:w-8 bg-gradient-to-r from-orange-500 to-pink-500'
-                      : 'w-2 bg-white/30 hover:bg-white/50'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
+        {currentSlide > -1 && (
+          <button
+            onClick={prevSlide}
+            className="fixed top-2 md:top-4 left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-40"
+          >
+            <ChevronUp className="w-5 h-5 md:w-6 md:h-6" />
+          </button>
         )}
+        {currentSlide < slides.length - 1 && (
+          <button
+            onClick={nextSlide}
+            className="fixed bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 z-40"
+          >
+            <ChevronDown className="w-5 h-5 md:w-6 md:h-6" />
+          </button>
+        )}
+
+        <div className="fixed right-2 md:right-4 top-1/2 -translate-y-1/2 flex flex-col gap-1.5 md:gap-2 z-40">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index, index > currentSlide ? 'down' : 'up')}
+              className={`rounded-full transition-all duration-300 ${
+                index === currentSlide
+                  ? 'w-2 h-6 md:h-8 bg-gradient-to-b from-orange-500 to-pink-500'
+                  : 'w-2 h-2 bg-white/30 hover:bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
