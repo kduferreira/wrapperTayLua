@@ -1,11 +1,32 @@
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Heart, Music, Clock, Camera, Sparkles, Eye, Smile, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import foto1 from './imgs/foto1.jpg';
+import foto2 from './imgs/foto2.jpg';
+import foto3 from './imgs/foto3.jpg';
+import foto4 from './imgs/foto4.jpg';
+import avatar from './imgs/avatar.jpg';
+import qualidade1 from './imgs/qualidade1.jpg';
+import qualidade2 from './imgs/qualidade2.jpg';
+import qualidade3 from './imgs/qualidade3.jpg';
+import qualidade4 from './imgs/qualidade4.jpg';
+import qualidade5 from './imgs/qualidade5.jpg';
+import qualidade6 from './imgs/qualidade6.jpg';
+import qualidade7 from './imgs/qualidade7.jpg';
+import qualidade8 from './imgs/qualidade8.jpg';
+import qualidade9 from './imgs/qualidade9.jpg';
 
-const PHOTOS = [
-  'imgs/foto1.jpg',
-  'imgs/foto2.jpg',
-  'imgs/foto3.jpg',
-  'imgs/foto4.jpg',
+const PHOTOS = [foto1, foto2, foto3, foto4];
+
+const QUALIDADE_PHOTOS = [
+  qualidade1,
+  qualidade2,
+  qualidade3,
+  qualidade4,
+  qualidade5,
+  qualidade6,
+  qualidade7,
+  qualidade8,
+  qualidade9,
 ];
 
 const START_DATE = new Date(2024, 3, 10);
@@ -64,7 +85,7 @@ function CoverSlide({ onEnter }: { onEnter: () => void }) {
         <div className="relative mb-6 md:mb-8 float-anim">
           <div className="w-28 h-28 md:w-36 md:h-36 mx-auto rounded-full overflow-hidden ring-2 md:ring-4 ring-orange-500/50 shadow-2xl shadow-orange-500/20">
             <img
-              src="imgs/avatar.jpg"
+              src={avatar}
               alt="Eduardo & Taylana"
               className="w-full h-full object-cover bg-gradient-to-br from-orange-500 to-pink-500"
               onError={(e) => {
@@ -409,15 +430,15 @@ function WhatILoveSlide() {
   const touchStartX = useRef(0);
 
   const attributes = [
-    { icon: '💬', title: 'Sincera', photo: 'imgs/qualidade1.jpg', color: 'from-orange-500 to-pink-500' },
-    { icon: '🤗', title: 'Carinhosa', photo: 'imgs/qualidade2.jpg', color: 'from-pink-500 to-rose-400' },
-    { icon: '🧠', title: 'Inteligente', photo: 'imgs/qualidade3.jpg', color: 'from-violet-500 to-pink-500' },
-    { icon: '🤝', title: 'Companheira', photo: 'imgs/qualidade4.jpg', color: 'from-teal-400 to-cyan-500' },
-    { icon: '🌸', title: 'Cheirosa', photo: 'imgs/qualidade5.jpg', color: 'from-rose-400 to-pink-600' },
-    { icon: '😍', title: 'Gationa', photo: 'imgs/qualidade6.jpg', color: 'from-amber-400 to-orange-500' },
-    { icon: '😄', title: 'Totosa', photo: 'imgs/qualidade7.jpg', color: 'from-fuchsia-500 to-pink-500' },
-    { icon: '🛡️', title: 'Cuidadosa', photo: 'imgs/qualidade8.jpg', color: 'from-sky-400 to-blue-500' },
-    { icon: '🙏', title: 'Temente ao Senhor', photo: 'imgs/qualidade9.jpg', color: 'from-orange-400 to-amber-500' },
+    { icon: '💬', title: 'Sincera', photo: QUALIDADE_PHOTOS[0], color: 'from-orange-500 to-pink-500' },
+    { icon: '🤗', title: 'Carinhosa', photo: QUALIDADE_PHOTOS[1], color: 'from-pink-500 to-rose-400' },
+    { icon: '🧠', title: 'Inteligente', photo: QUALIDADE_PHOTOS[2], color: 'from-violet-500 to-pink-500' },
+    { icon: '🤝', title: 'Companheira', photo: QUALIDADE_PHOTOS[3], color: 'from-teal-400 to-cyan-500' },
+    { icon: '🌸', title: 'Cheirosa', photo: QUALIDADE_PHOTOS[4], color: 'from-rose-400 to-pink-600' },
+    { icon: '😍', title: 'Gationa', photo: QUALIDADE_PHOTOS[5], color: 'from-amber-400 to-orange-500' },
+    { icon: '😄', title: 'Totosa', photo: QUALIDADE_PHOTOS[6], color: 'from-fuchsia-500 to-pink-500' },
+    { icon: '🛡️', title: 'Cuidadosa', photo: QUALIDADE_PHOTOS[7], color: 'from-sky-400 to-blue-500' },
+    { icon: '🙏', title: 'Temente ao Senhor', photo: QUALIDADE_PHOTOS[8], color: 'from-orange-400 to-amber-500' },
   ];
 
   const navigate = (dir: 'left' | 'right') => {
