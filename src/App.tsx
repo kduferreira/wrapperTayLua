@@ -556,15 +556,15 @@ function WhatILoveSlide() {
   const touchStartX = useRef(0);
 
   const attributes = [
-    { icon: '💬', title: 'Sincera', photo: QUALIDADE_PHOTOS[0], color: 'from-orange-500 to-pink-500' },
-    { icon: '🤗', title: 'Carinhosa', photo: QUALIDADE_PHOTOS[1], color: 'from-pink-500 to-rose-400' },
-    { icon: '🧠', title: 'Inteligente', photo: QUALIDADE_PHOTOS[2], color: 'from-violet-500 to-pink-500' },
-    { icon: '🤝', title: 'Companheira', photo: QUALIDADE_PHOTOS[3], color: 'from-teal-400 to-cyan-500' },
-    { icon: '🌸', title: 'Cheirosa', photo: QUALIDADE_PHOTOS[4], color: 'from-rose-400 to-pink-600' },
-    { icon: '😍', title: 'Gationa', photo: QUALIDADE_PHOTOS[5], color: 'from-amber-400 to-orange-500' },
-    { icon: '😄', title: 'Totosa', photo: QUALIDADE_PHOTOS[6], color: 'from-fuchsia-500 to-pink-500' },
-    { icon: '🛡️', title: 'Cuidadosa', photo: QUALIDADE_PHOTOS[7], color: 'from-sky-400 to-blue-500' },
-    { icon: '🙏', title: 'Temente ao Senhor', photo: QUALIDADE_PHOTOS[8], color: 'from-orange-400 to-amber-500' },
+    {  title: 'Sincera', photo: QUALIDADE_PHOTOS[0], color: 'from-orange-500 to-pink-500' },
+    {  title: 'Carinhosa', photo: QUALIDADE_PHOTOS[1], color: 'from-pink-500 to-rose-400' },
+    {  title: 'Inteligente', photo: QUALIDADE_PHOTOS[2], color: 'from-violet-500 to-pink-500' },
+    {  title: 'Companheira', photo: QUALIDADE_PHOTOS[3], color: 'from-teal-400 to-cyan-500' },
+    {  title: 'Cheirosa', photo: QUALIDADE_PHOTOS[4], color: 'from-rose-400 to-pink-600' },
+    {  title: 'Gationa', photo: QUALIDADE_PHOTOS[5], color: 'from-amber-400 to-orange-500' },
+    {  title: 'Totosa', photo: QUALIDADE_PHOTOS[6], color: 'from-fuchsia-500 to-pink-500' },
+    {  title: 'Cuidadosa', photo: QUALIDADE_PHOTOS[7], color: 'from-sky-400 to-blue-500' },
+    {  title: 'Temente ao Senhor', photo: QUALIDADE_PHOTOS[8], color: 'from-orange-400 to-amber-500' },
   ];
 
   const navigate = (dir: 'left' | 'right') => {
