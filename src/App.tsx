@@ -14,9 +14,11 @@ import qualidade6 from './imgs/qualidade6.jpg';
 import qualidade7 from './imgs/qualidade7.jpg';
 import qualidade8 from './imgs/qualidade8.jpg';
 import qualidade9 from './imgs/qualidade9.jpg';
-
+import albumCover from './imgs/album-cover.jpg';
+import elvis from './music/elvis.mp3'
 const PHOTOS = [foto1, foto2, foto3, foto4];
 
+const MUSIC = [elvis];
 const QUALIDADE_PHOTOS = [
   qualidade1,
   qualidade2,
@@ -206,35 +208,150 @@ function StatsSlide() {
 }
 
 function MusicSlide() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const handlePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (progressRef.current && audioRef.current) {
+      const rect = progressRef.current.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      audioRef.current.currentTime = percent * duration;
+    }
+  };
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+    setCurrentTime(0);
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, []);
+
   return (
     <div className="h-full flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-violet-900/30 via-[#0a0a0a] to-pink-900/30" />
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 md:w-[500px] h-64 md:h-[500px] bg-violet-500/30 rounded-full blur-3xl animate-pulse" />
-      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#191414] via-[#121212] to-[#0a0a0a]" />
 
-      <div className="relative z-10 text-center max-w-md w-full">
-        <div className="inline-flex items-center gap-2 bg-violet-500/20 text-violet-400 text-xs md:text-sm font-semibold px-3 md:px-4 py-1.5 md:py-2 rounded-full mb-6 md:mb-8">
-          <Music className="w-3 h-3 md:w-4 md:h-4" />
-          NOSSA MÚSICA
+      <div className="relative z-10 text-center max-w-md w-full px-2">
+        <div className="relative mb-6 md:mb-8">
+          <div
+            className={`w-56 h-56 md:w-72 md:h-72 mx-auto rounded-lg shadow-2xl overflow-hidden ${isPlaying ? 'animate-pulse-slow' : ''}`}
+          >
+            <img
+              src={albumCover}
+              alt="Album Cover"
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                target.parentElement!.innerHTML = `
+                  <div class="w-full h-full bg-gradient-to-br from-violet-600 to-pink-600 flex items-center justify-center">
+                    <svg class="w-24 h-24 text-white/30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                    </svg>
+                  </div>
+                `;
+              }}
+            />
+          </div>
         </div>
 
-        <div className="relative mb-8 md:mb-10">
-          <div className="w-40 h-40 md:w-52 md:h-52 mx-auto rounded-full bg-gradient-to-br from-violet-600 to-pink-600 flex items-center justify-center shadow-2xl spin-anim">
-            <div className="w-32 h-32 md:w-44 md:h-44 rounded-full bg-[#0a0a0a] flex items-center justify-center">
-              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center">
-                <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#0a0a0a]" />
-              </div>
+        <div className="mb-6 md:mb-8">
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-1">I Can't Help Falling in Love</h2>
+          <p className="text-sm md:text-base text-white/60 font-medium">Elvis Presley</p>
+        </div>
+
+        <div className="mb-6 md:mb-8">
+          <div
+            ref={progressRef}
+            className="w-full h-1 bg-white/20 rounded-full cursor-pointer group"
+            onClick={handleSeek}
+          >
+            <div
+              className="h-full bg-[#1DB954] rounded-full relative transition-all duration-100"
+              style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
+            >
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg" />
             </div>
           </div>
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-violet-500/30 to-pink-500/30 blur-2xl -z-10" />
-
-          <Music className="absolute -top-4 right-6 md:right-8 w-6 h-6 md:w-8 md:h-8 text-violet-400 float-anim" />
-          <Music className="absolute -bottom-2 left-6 md:left-10 w-5 h-5 md:w-6 md:h-6 text-pink-400 float-anim" style={{ animationDelay: '0.5s' }} />
+          <div className="flex justify-between mt-2">
+            <span className="text-xs text-white/50">{formatTime(currentTime)}</span>
+            <span className="text-xs text-white/50">{formatTime(duration)}</span>
+          </div>
         </div>
 
-        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Nossa Canção</h3>
-        <p className="text-lg md:text-xl text-violet-400 font-semibold mb-4 md:mb-6">"I Can't Falling in love you" - Elvis Presley</p>
+        <div className="flex items-center justify-center gap-6 md:gap-8 mb-6 md:mb-8">
+          <button className="text-white/60 hover:text-white transition-colors">
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+            </svg>
+          </button>
+
+          <button
+            onClick={handlePlay}
+            className="w-14 h-14 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-xl"
+          >
+            {isPlaying ? (
+              <svg className="w-6 h-6 md:w-7 md:h-7 text-[#191414]" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6 md:w-7 md:h-7 text-[#191414] ml-1" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            )}
+          </button>
+
+          <button className="text-white/60 hover:text-white transition-colors">
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="flex items-center justify-center gap-2 mb-4 md:mb-6">
+          <Music className="w-4 h-4 text-[#1DB954]" />
+          <span className="text-xs text-[#1DB954] font-semibold uppercase tracking-wider">Nossa Música</span>
+        </div>
 
         <div className="bg-white/5 backdrop-blur-lg rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/10">
           <p className="text-white/80 italic leading-relaxed text-center text-sm md:text-base">
@@ -246,11 +363,20 @@ function MusicSlide() {
         </div>
 
         <div className="mt-4 md:mt-6 flex justify-center gap-2 md:gap-3">
-          <span className="text-3xl md:text-4xl animate-pulse">&#x1F496;</span>
-          <span className="text-3xl md:text-4xl animate-pulse" style={{ animationDelay: '100ms' }}>&#x1F3B5;</span>
-          <span className="text-3xl md:text-4xl animate-pulse" style={{ animationDelay: '200ms' }}>&#x1F495;</span>
+          <span className="text-2xl md:text-3xl animate-pulse">&#x1F496;</span>
+          <span className="text-2xl md:text-3xl animate-pulse" style={{ animationDelay: '100ms' }}>&#x1F3B5;</span>
+          <span className="text-2xl md:text-3xl animate-pulse" style={{ animationDelay: '200ms' }}>&#x1F495;</span>
         </div>
       </div>
+
+      <audio
+        ref={audioRef}
+        src={MUSIC[0]}
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
+        onEnded={handleEnded}
+        preload="metadata"
+      />
     </div>
   );
 }
@@ -642,7 +768,7 @@ function LoveLetterSlide() {
 
           <div className="text-white/90 text-xs md:text-sm lg:text-base leading-relaxed text-left space-y-3 md:space-y-4">
             <p className="text-center text-white/30 text-xs md:text-sm">
-              Eduardo, cole sua carta aqui...
+//              Amor, você é a razão do meu sorriso e a inspiração por trás de cada palavra que escrevo. Neste dia dos namorados, quero que saiba o quanto você é amado e valorizado. Sua presença ilumina minha vida de maneiras que palavras não conseguem expressar, sei que somos casados, mas voce é minha eterna namorada, lembro do dia que fiz uma carta de 4 folhas para voce pedindo em namoro, com medo de voce nao aceitar, acho que foi a maior coisa que ja fiz por uma pessoa, e desde de la ja estamos a 2 anos juntos e somando, e cada dia eu te amo, falo que te amo, demonstro que te amo, penso em como te amo, e sou muito grato em ter voce em minha vida, sou abençoado por ter voce em minha vida, o Senhor foi bom comigo te amo minha lua.
             </p>
           </div>
 
